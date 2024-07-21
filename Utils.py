@@ -17,18 +17,20 @@ def db_read_keywords(database):
         return cursor.fetchall()
 
 
-def db_insertar_filas(conn, cursor, filas):
+def db_insertar_filas(database, filas):
     """insert into the search engine"""
-    cursor.executemany('''
-        INSERT OR IGNORE INTO keywords (
-            id, short_name, keyword, favicon_url, url, safe_for_autoreplace, originating_url,
-            date_created, usage_count, input_encodings, suggest_url, prepopulate_id, created_by_policy,
-            last_modified, sync_guid, alternate_urls, image_url, search_url_post_params,
-            suggest_url_post_params, image_url_post_params, new_tab_url, last_visited,
-            created_from_play_api, is_active, starter_pack_id, enforced_by_policy, featured_by_policy
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', filas)
-    conn.commit()
+    with sqlite3.connect(database) as conn:
+        cursor = conn.cursor()
+        cursor.executemany('''
+            INSERT OR IGNORE INTO keywords (
+                id, short_name, keyword, favicon_url, url, safe_for_autoreplace, originating_url,
+                date_created, usage_count, input_encodings, suggest_url, prepopulate_id, created_by_policy,
+                last_modified, sync_guid, alternate_urls, image_url, search_url_post_params,
+                suggest_url_post_params, image_url_post_params, new_tab_url, last_visited,
+                created_from_play_api, is_active, starter_pack_id, enforced_by_policy, featured_by_policy
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', filas)
+        conn.commit()
 
 
 def json_write(filas, f=BACKUP_FILE):
@@ -59,22 +61,3 @@ def comparar_datos(filas1, filas2):
 
 def add_spaces(lista, spaces=5):
     return [item + ' ' * spaces for item in lista]
-
-
-if __name__ == "__main__":
-    database = 'EdgeMal/Web Data'
-    file_extract = 'keywords.json'
-
-    # Connect to the database
-
-        # filas_a = db_read_keywords(cursor)
-
-        # print_filas(filas)
-        # json_write(filas)
-
-        # filas = json_read(file_extract)
-
-        # print_filas(filas)
-
-        # print(comparar_datos(filas_a, filas))
-        # db_insertar_filas(conn, cursor, filas)

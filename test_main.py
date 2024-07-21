@@ -1,6 +1,5 @@
 import Utils
 import Locations
-import pytest
 
 
 def test_browser_names():
