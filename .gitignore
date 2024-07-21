@@ -1,1 +1,7 @@
 .vscode/
+__pycache__/
+EdgeBien/
+EdgeMal/
+out.sql
+keywords.json
+.python-version

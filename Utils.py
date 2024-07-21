@@ -8,12 +8,13 @@ def print_filas(filas):
 
 
 def db_read_keywords(cursor):
-    # read from the search engine database
+    """read from the search engine database"""
     cursor.execute('SELECT * FROM keywords;')
     return cursor.fetchall()
 
 
 def db_insertar_filas(conn, cursor, filas):
+    """insert into the search engine"""
     cursor.executemany('''
         INSERT OR IGNORE INTO keywords (
             id, short_name, keyword, favicon_url, url, safe_for_autoreplace, originating_url,
@@ -52,6 +53,10 @@ def comparar_datos(filas1, filas2):
     return True, "Los arrays son iguales."
 
 
+def add_spaces(lista, spaces=5):
+    return [item + ' ' * spaces for item in lista]
+
+
 if __name__ == "__main__":
     database = 'EdgeMal/Web Data'
     file_extract = 'keywords.json'
@@ -65,9 +70,9 @@ if __name__ == "__main__":
         # print_filas(filas)
         # json_write(filas)
 
-        filas = json_read(file_extract)
+        # filas = json_read(file_extract)
 
         # print_filas(filas)
 
         # print(comparar_datos(filas_a, filas))
-        db_insertar_filas(conn, cursor, filas)
+        # db_insertar_filas(conn, cursor, filas)
