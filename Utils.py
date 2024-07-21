@@ -1,16 +1,20 @@
 import sqlite3
 import json
 
+BACKUP_FILE = 'engines.json'
+
 
 def print_filas(filas):
     for fila in filas:
         print(fila)
 
 
-def db_read_keywords(cursor):
-    """read from the search engine database"""
-    cursor.execute('SELECT * FROM keywords;')
-    return cursor.fetchall()
+def db_read_keywords(database):
+    """Read from the search engine database"""
+    with sqlite3.connect(database) as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM keywords;')
+        return cursor.fetchall()
 
 
 def db_insertar_filas(conn, cursor, filas):
@@ -27,12 +31,12 @@ def db_insertar_filas(conn, cursor, filas):
     conn.commit()
 
 
-def json_write(filas):
-    with open('keywords.json', 'w') as f:
+def json_write(filas, f=BACKUP_FILE):
+    with open(f, 'w') as f:
         json.dump(filas, f)
 
 
-def json_read(f):
+def json_read(f=BACKUP_FILE):
     with open(f, 'r') as file:
         filas = json.load(file)
         return filas
@@ -62,8 +66,6 @@ if __name__ == "__main__":
     file_extract = 'keywords.json'
 
     # Connect to the database
-    with sqlite3.connect(database) as conn:
-        cursor = conn.cursor()
 
         # filas_a = db_read_keywords(cursor)
 
