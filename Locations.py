@@ -15,7 +15,7 @@ LOCATIONS = {
     "brave": {
         "windows": "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data",
         "darwin": "$HOME/Library/Application Support/BraveSoftware/Brave-Browser",
-        "linux": "$HOME/.config/BraveSoftware/Brave-Browser"
+        "linux": "$HOME/.config/BraveSoftware/Brave-Browser/Default/"
     },
     "edge": {
         "windows": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data",
