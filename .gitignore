@@ -4,5 +4,6 @@ EdgeBien/
 EdgeMal/
 out.sql
 .python-version
-keywords.json
-engines.json
+keywords*.json*
+engines*.json*
+uv.lock
