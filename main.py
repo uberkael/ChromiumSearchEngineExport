@@ -3,8 +3,8 @@
 import tkinter as tk
 import sv_ttk
 from tkinter import filedialog, messagebox, ttk
-import Utils
-import Locations
+import utils
+import locations
 
 
 def show_file_error():
@@ -13,13 +13,13 @@ def show_file_error():
 
 def show_empty_alert():
     messagebox.showerror("Error",
-                         f"No data found in the backup file {Utils.BACKUP_FILE}")
+                         f"No data found in the backup file {utils.BACKUP_FILE}")
 
 
 def show_success_export():
     messagebox.showinfo(
         "Success",
-        f"Search Engines exported successfully in {Utils.BACKUP_FILE}")
+        f"Search Engines exported successfully in {utils.BACKUP_FILE}")
 
 
 def show_success_import(path):
@@ -30,7 +30,7 @@ def show_success_import(path):
 
 def importar():
     """Importa el JSON backup en el navegador seleccionado"""
-    path = Locations.get_browser_path(bw_sel.get().strip())
+    path = locations.get_browser_path(bw_sel.get().strip())
     file_path = filedialog.askopenfilename(initialfile="Web Data",
                                            initialdir=path,
                                            filetypes=[("Web Data SQLite",
@@ -40,13 +40,13 @@ def importar():
         return
 
     print(f"Importing from {file_path}")
-    filas = Utils.json_read(Utils.BACKUP_FILE)
+    filas = utils.json_read(utils.BACKUP_FILE)
     if len(filas) == 0:
         show_empty_alert()
         return
 
     try:
-        Utils.db_insertar_filas(file_path, filas)
+        utils.db_insertar_filas(file_path, filas)
         show_success_import(file_path)
     except Exception as e:
         messagebox.showerror("Error", f"{e}")
@@ -54,7 +54,7 @@ def importar():
 
 def exportar(bw_sel):
     """Exporta Search Engines del navegador seleccionado en un archivo JSON"""
-    path = Locations.get_browser_path(bw_sel.get().strip())
+    path = locations.get_browser_path(bw_sel.get().strip())
     file_path = filedialog.askopenfilename(initialfile="Web Data",
                                            initialdir=path,
                                            filetypes=[("Web Data SQLite",
@@ -63,8 +63,8 @@ def exportar(bw_sel):
         show_file_error()
         return
 
-    filas = Utils.db_read_keywords(file_path)
-    Utils.json_write(filas)
+    filas = utils.db_read_keywords(file_path)
+    utils.json_write(filas)
     show_success_export()
 
 
@@ -88,7 +88,7 @@ frame.pack(pady=10)
 label = tk.Label(win, text="Close Browser before import or export")
 label.pack(pady=10)
 
-bws = Utils.add_spaces(Locations.LOCATIONS.keys())
+bws = utils.add_spaces(locations.LOCATIONS.keys())
 menu = ttk.OptionMenu(
     frame, bw_sel, bws[0], *bws, command=lambda _: select_browser
 )
