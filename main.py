@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import tkinter as tk
-import sv_ttk
 from tkinter import filedialog, messagebox, ttk
+import sv_ttk
 import utils
 import locations
 
@@ -82,18 +82,26 @@ win.title("Browser Search Engines")
 
 bw_sel = tk.StringVar()
 
+# Create a frame that holds both the label and the menu
 frame = tk.Frame(win)
 frame.pack(pady=10)
 
-label = tk.Label(win, text="Close Browser before import or export")
-label.pack(pady=10)
+# Place label above the menu
+label = tk.Label(frame,
+                 text="Close Browser before import or export",
+                 font=("Arial", 14, "bold"))
+label.pack(pady=(0, 10))
+
+label = tk.Label(frame,
+                 text=("Export from Browser Web Data SQLite to a JSON file\n"
+                       "Import from a JSON file into a Browser Web Data SQLite"))
+label.pack(pady=(0, 10))
 
 bws = utils.add_spaces(locations.LOCATIONS.keys())
-menu = ttk.OptionMenu(
-    frame, bw_sel, bws[0], *bws, command=lambda _: select_browser
-)
+menu = ttk.OptionMenu(frame,
+                      bw_sel, bws[0], *bws, command=lambda _: select_browser)
 menu.config(padding=(50, 5))
-menu.pack(anchor=tk.W)
+menu.pack(anchor="center")
 
 frame_botones = tk.Frame(win)
 frame_botones.pack(side=tk.BOTTOM, pady=10)
