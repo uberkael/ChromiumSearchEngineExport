@@ -22,6 +22,11 @@ LOCATIONS = {
         "darwin": "$HOME/Library/Application Support/Microsoft Edge",
         "linux": "$HOME/.config/microsoft-edge/Default"
     },
+    "vivaldi": {
+        "windows": "%LOCALAPPDATA%\\Vivaldi\\User Data",
+        "darwin": "$HOME/Library/Application Support/Vivaldi",
+        "linux": "$HOME/.config/vivaldi/Default"
+    },
 }
 
 
