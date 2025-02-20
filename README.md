@@ -20,11 +20,13 @@ python main.py
 
 ### Export Search Engines to a JSON file
 ![Export](export.png)
+
 The JSON file is saved in the same directory as the script,
 with the name `engines.json`.
 
 ### Import Search Engines from a JSON file
 ![alt text](import.png)
+
 The JSONfile must be in the same directory as the script,
 with the name `engines.json`.
 
